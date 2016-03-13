@@ -60,7 +60,7 @@ class Lazy_Load_Videos {
 	/**
 	 * Define the core functionality of the plugin.
 	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
+	 * Set the Lazy Load Videos and the plugin version that can be used throughout the plugin.
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
@@ -135,12 +135,12 @@ class Lazy_Load_Videos {
 		/**
 		 * The class responsible for defining all actions relating to the employee custom post type.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-cpt-posttypename.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-cpt-video.php';
 
 		/**
 		 * The class responsible for defining all actions relating to the TaxonomyName taxonomy.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-tax-taxonomyname.php';
+		//require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-tax-taxonomyname.php';
 
 		/**
 		 * The class responsible for defining all actions creating the templates.
@@ -188,7 +188,7 @@ class Lazy_Load_Videos {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Lazy_Load_Videos_Admin( $this->get_Lazy_Load_Videos(), $this->get_version() );
+		$plugin_admin = new Lazy_Load_Videos_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -196,7 +196,7 @@ class Lazy_Load_Videos {
 		$this->loader->action( 'admin_init', $plugin_admin, 'register_sections' );
 		$this->loader->action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->action( 'admin_menu', $plugin_admin, 'add_menu' );
-		$this->loader->action( 'plugin_action_links_' . Lazy_Load_Videos_FILE, $plugin_admin, 'link_settings' );
+		$this->loader->action( 'plugin_action_links_' . LAZY_LOAD_VIDEOS_FILE, $plugin_admin, 'link_settings' );
 		$this->loader->action( 'plugin_row_meta', $plugin_admin, 'link_row_meta', 10, 2 );
 
 	} // define_admin_hooks()
@@ -209,19 +209,19 @@ class Lazy_Load_Videos {
 	 */
 	private function define_cpt_and_tax_hooks() {
 
-		$plugin_cpt_employee = new Lazy_Load_Videos_CPT_PostTypeName( $this->get_Lazy_Load_Videos(), $this->get_version() );
+		$plugin_cpt_video = new Lazy_Load_Videos_CPT_Video( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->action( 'init', $plugin_cpt_employee, 'new_cpt_posttypename' );
-		$this->loader->filter( 'manage_posttypename_posts_columns', $plugin_cpt_employee, 'posttypename_register_columns' );
-		$this->loader->action( 'manage_posttypename_posts_custom_column', $plugin_cpt_employee, 'posttypename_column_content', 10, 2 );
-		$this->loader->filter( 'manage_edit-posttypename_sortable_columns', $plugin_cpt_employee, 'posttypename_sortable_columns', 10, 1 );
-		$this->loader->action( 'request', $plugin_cpt_employee, 'posttypename_order_sorting', 10, 2 );
-		$this->loader->action( 'init', $plugin_cpt_employee, 'add_image_sizes' );
+		$this->loader->action( 'init', $plugin_cpt_video, 'new_cpt_video' );
+		$this->loader->filter( 'manage_video_posts_columns', $plugin_cpt_video, 'video_register_columns' );
+		$this->loader->action( 'manage_video_posts_custom_column', $plugin_cpt_video, 'video_column_content', 10, 2 );
+		$this->loader->filter( 'manage_edit-video_sortable_columns', $plugin_cpt_video, 'video_sortable_columns', 10, 1 );
+		$this->loader->action( 'request', $plugin_cpt_video, 'video_order_sorting', 10, 2 );
+		$this->loader->action( 'init', $plugin_cpt_video, 'add_image_sizes' );
 
 
-		$plugin_tax_department =new Lazy_Load_Videos_Tax_TaxonomyName( $this->get_Lazy_Load_Videos(), $this->get_version() );
+		//$plugin_tax_taxonomyname =new Lazy_Load_Videos_Tax_TaxonomyName( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->action( 'init', $plugin_tax_department, 'new_taxonomy_taxonomyname' );
+		//$this->loader->action( 'init', $plugin_tax_taxonomyname, 'new_taxonomy_taxonomyname' );
 
 	} // define_cpt_and_tax_hooks()
 
@@ -233,13 +233,13 @@ class Lazy_Load_Videos {
 	 */
 	private function define_metabox_hooks() {
 
-		$plugin_metaboxes = new Lazy_Load_Videos_Admin_Metaboxes( $this->get_Lazy_Load_Videos(), $this->get_version() );
+		$plugin_metaboxes = new Lazy_Load_Videos_Admin_Metaboxes( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->action( 'add_meta_boxes_posttypename', $plugin_metaboxes, 'add_metaboxes' );
-		$this->loader->action( 'save_post_posttypename', $plugin_metaboxes, 'validate_meta', 10, 2 );
+		$this->loader->action( 'add_meta_boxes_video', $plugin_metaboxes, 'add_metaboxes' );
+		$this->loader->action( 'save_post_video', $plugin_metaboxes, 'validate_meta', 10, 2 );
 		$this->loader->action( 'edit_form_after_title', $plugin_metaboxes, 'metabox_subtitle', 10, 2 );
-		$this->loader->action( 'add_meta_boxes_posttypename', $plugin_metaboxes, 'set_meta' );
-		$this->loader->filter( 'post_type_labels_posttypename', $plugin_metaboxes, 'change_featured_image_labels', 10, 1 );
+		$this->loader->action( 'add_meta_boxes_video', $plugin_metaboxes, 'set_meta' );
+		$this->loader->filter( 'post_type_labels_video', $plugin_metaboxes, 'change_featured_image_labels', 10, 1 );
 
 	} // define_metabox_hooks()
 
@@ -252,7 +252,7 @@ class Lazy_Load_Videos {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Lazy_Load_Videos_Public( $this->get_Lazy_Load_Videos(), $this->get_version() );
+		$plugin_public = new Lazy_Load_Videos_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -294,9 +294,9 @@ class Lazy_Load_Videos {
 		$this->loader->action( 'lazy-load-videos-after-loop', 			$plugin_templates, 'loop_wrap_end', 10, 1 );
 
 		// Single
-		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_posttypename_thumbnail', 10 );
-		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_posttypename_posttitle', 15 );
-		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_posttypename_content', 20 );
+		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_video_thumbnail', 10 );
+		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_video_posttitle', 15 );
+		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_video_content', 20 );
 
 	} // define_template_hooks()
 
@@ -319,11 +319,11 @@ class Lazy_Load_Videos {
 	 *
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_Lazy_Load_Videos() {
+	public function get_plugin_name() {
 
 		return $this->plugin_name;
 
-	} // get_Lazy_Load_Videos()
+	} // get_plugin_name()
 
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.

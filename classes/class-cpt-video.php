@@ -59,7 +59,7 @@ class Lazy_Load_Videos_CPT_Video {
 	 *
 	 * @return 		string 							The column content
 	 */
-	public function posttypename_column_content( $column_name, $post_id  ) {
+	public function video_column_content( $column_name, $post_id  ) {
 
 		if ( empty( $post_id ) ) { return; }
 
@@ -81,7 +81,7 @@ class Lazy_Load_Videos_CPT_Video {
 
 		}
 
-	} // posttypename_column_content()
+	} // video_column_content()
 
 	/**
 	 * Sorts the employee admin list by the display order
@@ -90,11 +90,11 @@ class Lazy_Load_Videos_CPT_Video {
 	 *
 	 * @return 		array 						The modified query vars array
 	 */
-	public function posttypename_order_sorting( $vars ) {
+	public function video_order_sorting( $vars ) {
 
 		if ( empty( $vars ) ) { return $vars; }
 		if ( ! is_admin() ) { return $vars; }
-		if ( ! isset( $vars['post_type'] ) || 'posttypename' !== $vars['post_type'] ) { return $vars; }
+		if ( ! isset( $vars['post_type'] ) || 'video' !== $vars['post_type'] ) { return $vars; }
 
 		if ( isset( $vars['orderby'] ) && 'sortable-column' === $vars['orderby'] ) {
 
@@ -107,7 +107,7 @@ class Lazy_Load_Videos_CPT_Video {
 
 		return $vars;
 
-	} // posttypename_order_sorting()
+	} // video_order_sorting()
 
 	/**
 	 * Registers additional columns for the Lazy_Load_Videos admin listing
@@ -117,7 +117,7 @@ class Lazy_Load_Videos_CPT_Video {
 	 *
 	 * @return 		array 						The modified columns
 	 */
-	public function posttypename_register_columns( $columns ) {
+	public function video_register_columns( $columns ) {
 
 		$new['cb'] 				= '<input type="checkbox" />';
 		$new['thumbnail'] 		= __( 'Thumbnail', 'lazy-load-videos' );
@@ -126,7 +126,7 @@ class Lazy_Load_Videos_CPT_Video {
 
 		return $new;
 
-	} // posttypename_register_columns()
+	} // video_register_columns()
 
 	/**
 	 * Registers sortable columns
@@ -135,13 +135,13 @@ class Lazy_Load_Videos_CPT_Video {
 	 *
 	 * @return 		array 							The modified sortable columns
 	 */
-	public function posttypename_sortable_columns( $sortables ) {
+	public function video_sortable_columns( $sortables ) {
 
 		$sortables['sortable-column'] = 'display-order';
 
 		return $sortables;
 
-	} // posttypename_sortable_columns()
+	} // video_sortable_columns()
 
 	/**
 	 * Creates a new custom post type
@@ -151,7 +151,7 @@ class Lazy_Load_Videos_CPT_Video {
 		$cap_type 	= 'post';
 		$plural 	= 'posttypes';
 		$single 	= 'posttype';
-		$cpt_name 	= 'posttypename';
+		$cpt_name 	= 'video';
 
 		$opts['can_export']								= TRUE;
 		$opts['capability_type']						= $cap_type;
@@ -209,7 +209,7 @@ class Lazy_Load_Videos_CPT_Video {
 		$opts['rewrite']['slug']						= esc_html__( $cpt_name, 'lazy-load-videos' );
 		$opts['rewrite']['with_front']					= TRUE;
 
-		$opts = apply_filters( 'lazy-load-videos-cpt-posttypename-options', $opts );
+		$opts = apply_filters( 'lazy-load-videos-cpt-video-options', $opts );
 
 		register_post_type( $cpt_name, $opts );
 

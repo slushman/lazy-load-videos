@@ -13,7 +13,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
+ * Defines the Lazy Load Videos, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
  * @package 	Lazy_Load_Videos
@@ -80,8 +80,8 @@ class Lazy_Load_Videos_Admin {
 		// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function);
 
 		add_submenu_page(
-			'edit.php?post_type=posttypename',
-			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Plugin Name Settings', 'lazy-load-videos' ) ),
+			'edit.php?post_type=video',
+			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Lazy Load Videos Settings', 'lazy-load-videos' ) ),
 			apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Settings', 'lazy-load-videos' ) ),
 			'manage_options',
 			$this->plugin_name . '-settings',
@@ -89,8 +89,8 @@ class Lazy_Load_Videos_Admin {
 		);
 
 		add_submenu_page(
-			'edit.php?post_type=posttypename',
-			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Plugin Name Help', 'lazy-load-videos' ) ),
+			'edit.php?post_type=video',
+			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Lazy Load Videos Help', 'lazy-load-videos' ) ),
 			apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Help', 'lazy-load-videos' ) ),
 			'manage_options',
 			$this->plugin_name . '-help',
@@ -314,7 +314,7 @@ class Lazy_Load_Videos_Admin {
 	 */
 	public function link_settings( $links ) {
 
-		$links[] = sprintf( '<a href="%s">%s</a>', admin_url( 'edit.php?post_type=posttypename&page=lazy-load-videos-settings' ), esc_html__( 'Settings', 'lazy-load-videos' ) );
+		$links[] = sprintf( '<a href="%s">%s</a>', admin_url( 'edit.php?post_type=video&page=lazy-load-videos-settings' ), esc_html__( 'Settings', 'lazy-load-videos' ) );
 
 		return $links;
 
@@ -332,7 +332,7 @@ class Lazy_Load_Videos_Admin {
 	 */
 	public function link_row_meta( $links, $file ) {
 
-		if ( $file == Lazy_Load_Videos_FILE ) {
+		if ( $file == LAZY_LOAD_VIDEOS_FILE ) {
 
 			$links[] = '<a href="http://twitter.com/slushman">Twitter</a>';
 

@@ -54,7 +54,7 @@ class Lazy_Load_Videos_Tax_TaxonomyName {
 		$plural 	= 'TaxonomyNames';
 		$single 	= 'TaxonomyName';
 		$tax_name 	= 'TaxonomyName';
-		$cpt_name 	= 'posttypename';
+		$cpt_name 	= 'video';
 
 		$opts['hierarchical']							= TRUE;
 		//$opts['meta_box_cb'] 							= '';

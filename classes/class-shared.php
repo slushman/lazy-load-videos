@@ -159,7 +159,7 @@ class Lazy_Load_Videos_Shared {
 
 		$args['no_found_rows']				= true;
 		$args['order'] 						= $params['order'];
-		$args['post_type'] 					= 'posttypename';
+		$args['post_type'] 					= 'video';
 		$args['post_status'] 				= 'publish';
 		$args['posts_per_page'] 			= absint( $params['quantity'] );
 		$args['update_post_term_cache'] 	= false;

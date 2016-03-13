@@ -105,7 +105,7 @@ class Lazy_Load_Videos_Public {
 		global $post;
 
 		if ( empty( $post ) ) { return; }
-		if ( 'posttypename' !== $post->post_type ) { return; }
+		if ( 'video' !== $post->post_type ) { return; }
 
 		$this->meta = get_post_custom( $post->ID );
 

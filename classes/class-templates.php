@@ -192,42 +192,42 @@ class Lazy_Load_Videos_Templates {
 	} // set_options()
 
 	/**
-	 * Includes the single posttypename meta field
+	 * Includes the single video meta field
 	 *
 	 * @param 		array 		$meta 		The post metadata
 	 */
-	public function single_posttypename_meta_field( $meta ) {
+	public function single_video_meta_field( $meta ) {
 
-		include Lazy_Load_Videos_templates( 'single-posttypename-metafield', 'single' );
+		include Lazy_Load_Videos_templates( 'single-video-metafield', 'single' );
 
-	} // single_posttypename_meta_field()
-
-	/**
-	 * Includes the single posttypename content
-	 */
-	public function single_posttypename_content() {
-
-		include Lazy_Load_Videos_templates( 'single-posttypename-content', 'single' );
-
-	} // single_posttypename_content()
+	} // single_video_meta_field()
 
 	/**
-	 * Includes the single posttypename post title
+	 * Includes the single video content
 	 */
-	public function single_posttypename_posttitle() {
+	public function single_video_content() {
 
-		include Lazy_Load_Videos_templates( 'single-posttypename-posttitle', 'single' );
+		include Lazy_Load_Videos_templates( 'single-video-content', 'single' );
 
-	} // single_posttypename_posttitle()
+	} // single_video_content()
 
 	/**
-	 * Include the single posttypename thumbnail
+	 * Includes the single video post title
 	 */
-	public function single_posttypename_thumbnail() {
+	public function single_video_posttitle() {
 
-		include Lazy_Load_Videos_templates( 'single-posttypename-thumbnail', 'single' );
+		include Lazy_Load_Videos_templates( 'single-video-posttitle', 'single' );
 
-	} // single_posttypename_thumbnail()
+	} // single_video_posttitle()
+
+	/**
+	 * Include the single video thumbnail
+	 */
+	public function single_video_thumbnail() {
+
+		include Lazy_Load_Videos_templates( 'single-video-thumbnail', 'single' );
+
+	} // single_video_thumbnail()
 
 	/**
 	 * Returns a reference to this class. Used for removing
