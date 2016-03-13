@@ -151,6 +151,37 @@ class Lazy_Load_Videos_Admin {
 	} // field_checkbox()
 
 	/**
+	 * Creates a text field
+	 *
+	 * @param 	array 		$args 			The arguments for the field
+	 *
+	 * @return 	string 						The HTML field
+	 */
+	public function field_media_chooser( $args ) {
+
+		$defaults['class'] 			= 'text widefat';
+		$defaults['description'] 	= '';
+		$defaults['label'] 			= '';
+		$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
+		$defaults['placeholder'] 	= '';
+		$defaults['type'] 			= 'text';
+		$defaults['value'] 			= '';
+
+		apply_filters( $this->plugin_name . '-field-text-options-defaults', $defaults );
+
+		$atts = wp_parse_args( $args, $defaults );
+
+		if ( ! empty( $this->options[$atts['id']] ) ) {
+
+			$atts['value'] = $this->options[$atts['id']];
+
+		}
+
+		include( plugin_dir_path( __FILE__ ) . 'views/view-field-text.php' );
+
+	} // field_media_chooser()
+
+	/**
 	 * Creates a set of radios field
 	 *
 	 * @param 	array 		$args 			The arguments for the field

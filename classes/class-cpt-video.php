@@ -146,7 +146,7 @@ class Lazy_Load_Videos_CPT_Video {
 	/**
 	 * Creates a new custom post type
 	 */
-	public static function new_cpt_employee() {
+	public static function new_cpt_video() {
 
 		$cap_type 	= 'post';
 		$plural 	= 'posttypes';
@@ -160,7 +160,7 @@ class Lazy_Load_Videos_CPT_Video {
 		$opts['has_archive']							= FALSE;
 		$opts['hierarchical']							= FALSE;
 		$opts['map_meta_cap']							= TRUE;
-		$opts['menu_icon']								= 'dashicons-groups';
+		$opts['menu_icon']								= 'dashicons-video-alt3';
 		$opts['menu_position']							= 25;
 		$opts['public']									= TRUE;
 		$opts['publicly_querable']						= TRUE;
@@ -213,6 +213,6 @@ class Lazy_Load_Videos_CPT_Video {
 
 		register_post_type( $cpt_name, $opts );
 
-	} // new_cpt_employee()
+	} // new_cpt_video()
 
 } // class
