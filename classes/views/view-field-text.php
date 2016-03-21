@@ -26,6 +26,6 @@ if ( ! empty( $atts['label'] ) ) {
 
 if ( ! empty( $atts['description'] ) ) {
 
-	?><span class="description"><?php esc_html_e( $atts['description'], 'lazy-load-videos' ); ?></span><?php
+	?><p class="description"><?php esc_html_e( $atts['description'], 'lazy-load-videos' ); ?></p><?php
 
 }

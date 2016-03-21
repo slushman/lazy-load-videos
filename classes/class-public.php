@@ -121,22 +121,19 @@ class Lazy_Load_Videos_Public {
 	} // set_options()
 
 	/**
-	 * Processes shortcode employeelist
+	 * Processes shortcode llvideoß
 	 *
 	 * @param 	array 	$atts 		Shortcode attributes
 	 *
 	 * @return	mixed	$output		Output of the buffer
 	 */
-	public function shortcode_shortcodename( $atts = array() ) {
+	public function shortcode_llvideo( $atts = array() ) {
 
 		ob_start();
 
-		$defaults['department'] 	= '';
+		$defaults['quantity'] 		= 1;
 		$defaults['loop-template'] 	= $this->plugin_name . '-loop';
-		$defaults['order'] 			= 'ASC';
-		$defaults['quantity'] 		= 100;
-		$defaults['show'] 			= '';
-		$args						= shortcode_atts( $defaults, $atts, 'shortcodename' );
+		$args						= shortcode_atts( $defaults, $atts, 'llvideo' );
 		$shared 					= new Lazy_Load_Videos_Shared( $this->plugin_name, $this->version );
 		$items 						= $shared->query( $args );
 
@@ -156,6 +153,6 @@ class Lazy_Load_Videos_Public {
 
 		return $output;
 
-	} // shortcode_shortcodename()
+	} // shortcode_llvideo()
 
 } // class

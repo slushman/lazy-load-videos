@@ -63,21 +63,41 @@ class Lazy_Load_Videos_CPT_Video {
 
 		if ( empty( $post_id ) ) { return; }
 
+		if ( 'title' === $column_name ) {
+
+			$title = get_the_title( $post_id );
+
+			echo '<a href="' . esc_url( get_edit_post_link( $post_id ) ) .  '">';
+			echo $title;
+			echo '</a>';
+
+		}
+
+		if ( 'video-url' === $column_name ) {
+
+			$url = get_post_meta( $post_id, 'video-url', true );
+
+			echo $url;
+
+		}
+
+		if ( 'shortcode' === $column_name ) {
+
+			echo '<pre>[llvideo id="' . get_the_id(). '"]</pre>';
+
+		}
+
+		if ( 'template-tag' === $column_name ) {
+
+			echo '<pre>&lt;?php echo llvideo(' . get_the_id() . '); ?&gt;</pre>';
+
+		}
+
 		if ( 'col-thumb' === $column_name ) {
 
 			$thumb = get_the_post_thumbnail( $post_id, 'col-thumb' );
 
 			echo $thumb;
-
-		}
-
-		if ( 'sortable-column' === $column_name ) {
-
-			$col = get_post_meta( $post_id, 'sortable-column', true );
-
-			echo '<a href="' . esc_url( get_edit_post_link( $post_id ) ) .  '">';
-			echo $col;
-			echo '</a>';
 
 		}
 
@@ -92,7 +112,7 @@ class Lazy_Load_Videos_CPT_Video {
 	 */
 	public function video_order_sorting( $vars ) {
 
-		if ( empty( $vars ) ) { return $vars; }
+		/*if ( empty( $vars ) ) { return $vars; }
 		if ( ! is_admin() ) { return $vars; }
 		if ( ! isset( $vars['post_type'] ) || 'video' !== $vars['post_type'] ) { return $vars; }
 
@@ -103,7 +123,7 @@ class Lazy_Load_Videos_CPT_Video {
 				'orderby' => 'meta_value'
 			) );
 
-		}
+		}*/
 
 		return $vars;
 
@@ -120,9 +140,11 @@ class Lazy_Load_Videos_CPT_Video {
 	public function video_register_columns( $columns ) {
 
 		$new['cb'] 				= '<input type="checkbox" />';
+		$new['title'] 			= __( 'Video Title', 'lazy-load-videos' );
+		$new['video-url'] 		= __( 'Video URL', 'lazy-load-videos' );
+		$new['shortcode'] 		= __( 'Shortcode', 'lazy-load-videos' );
+		$new['template-tag'] 	= __( 'Template Tag', 'lazy-load-videos' );
 		$new['thumbnail'] 		= __( 'Thumbnail', 'lazy-load-videos' );
-		$new['sortable-column'] = __( 'Sortable Column', 'lazy-load-videos' );
-		$new['date'] 			= __( 'Date' );
 
 		return $new;
 
@@ -137,7 +159,7 @@ class Lazy_Load_Videos_CPT_Video {
 	 */
 	public function video_sortable_columns( $sortables ) {
 
-		$sortables['sortable-column'] = 'display-order';
+		//$sortables['sortable-column'] = 'display-order';
 
 		return $sortables;
 
@@ -149,8 +171,8 @@ class Lazy_Load_Videos_CPT_Video {
 	public static function new_cpt_video() {
 
 		$cap_type 	= 'post';
-		$plural 	= 'posttypes';
-		$single 	= 'posttype';
+		$plural 	= 'Videos';
+		$single 	= 'Video';
 		$cpt_name 	= 'video';
 
 		$opts['can_export']								= TRUE;
@@ -171,7 +193,7 @@ class Lazy_Load_Videos_CPT_Video {
 		$opts['show_in_menu']							= TRUE;
 		$opts['show_in_nav_menu']						= TRUE;
 		$opts['show_ui']								= TRUE;
-		$opts['supports']								= array( 'title', 'editor', 'thumbnail' );
+		$opts['supports']								= array( 'title', 'thumbnail' );
 		$opts['taxonomies']								= array();
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";

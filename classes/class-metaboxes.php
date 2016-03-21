@@ -16,7 +16,7 @@
  * @subpackage 	Lazy_Load_Videos/classes
  * @author 		Slushman <chris@slushman.com>
  */
-class Plugin_Name_Admin_Metaboxes {
+class Lazy_Load_Videos_Admin_Metaboxes {
 
 	/**
 	 * The post meta data
@@ -26,6 +26,15 @@ class Plugin_Name_Admin_Metaboxes {
 	 * @var 		string 			$meta    			The post meta data.
 	 */
 	private $meta;
+
+	/**
+	 * The plugin options.
+	 *
+	 * @since 		1.0.0
+	 * @access 		private
+	 * @var 		string 			$options 		The plugin options.
+	 */
+	private $options;
 
 	/**
 	 * The ID of this plugin.
@@ -57,7 +66,10 @@ class Plugin_Name_Admin_Metaboxes {
 		$this->plugin_name 	= $plugin_name;
 		$this->version 		= $version;
 
-	}
+		$this->set_options();
+		$this->set_meta();
+
+	} // __construct()
 
 	/**
 	 * Registers metaboxes with WordPress
@@ -80,6 +92,18 @@ class Plugin_Name_Admin_Metaboxes {
 			'default',
 			array(
 				'file' => 'video-info'
+			)
+		);
+
+		add_meta_box(
+			'lazy_load_videos_publishing',
+			apply_filters( $this->plugin_name . '-publishing-title', esc_html__( 'Publishing Info', 'lazy-load-videos' ) ),
+			array( $this, 'metabox' ),
+			'video',
+			'normal',
+			'default',
+			array(
+				'file' => 'publishing'
 			)
 		);
 
@@ -131,6 +155,26 @@ class Plugin_Name_Admin_Metaboxes {
 	} // check_nonces()
 
 	/**
+	 * Returns an array of the all the metabox fields and their respective types
+	 *
+	 * $fields[] 	= array( 'field-name', 'field-type', 'Field Label' );
+	 *
+	 * @since 		1.0.0
+	 * @access 		public
+	 * @return 		array 		Metabox fields and types
+	 */
+	private function get_metabox_fields() {
+
+		$fields = array();
+
+		$fields[] 	= array( 'video-url', 'url', 'Video URL' );
+		$fields[] 	= array( 'click-behavior', 'select', 'Click Behavior' );
+
+		return $fields;
+
+	} // get_metabox_fields()
+
+	/**
 	 * Calls a metabox file specified in the add_meta_box args.
 	 *
 	 * @since 	1.0.0
@@ -161,6 +205,15 @@ class Plugin_Name_Admin_Metaboxes {
 	} // set_meta()
 
 	/**
+	 * Sets the class variable $options
+	 */
+	private function set_options() {
+
+		$this->options = get_option( $this->plugin_name . '-options' );
+
+	} // set_options()
+
+	/**
 	 * Saves metabox data
 	 *
 	 * @since 		1.0.0
@@ -185,11 +238,7 @@ class Plugin_Name_Admin_Metaboxes {
 
 			$value 		= ( empty( $this->meta[$meta[0]][0] ) ? '' : $this->meta[$meta[0]][0] );
 			$sanitizer 	= new Lazy_Load_Videos_Sanitize();
-
-			$sanitizer->set_data( $_POST[$meta[0]] );
-			$sanitizer->set_type( $meta[1] );
-
-			$new_value = $sanitizer->clean();
+			$new_value 	= $sanitizer->clean( $_POST[$meta[0]], $meta[1] );
 
 			update_post_meta( $post_id, $meta[0], $new_value );
 

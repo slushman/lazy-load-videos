@@ -85,6 +85,15 @@ class Lazy_Load_Videos_Templates {
 	} // get_featured_images()
 
 	/**
+	 * Includes the featured image template file
+	 */
+	public function loop_content_image( $item, $meta = array() ) {
+
+		include Lazy_Load_Videos_get_template( 'loop-content-image', 'loop' );
+
+	} // loop_content_image()
+
+	/**
 	 * Includes the link start template file
 	 *
 	 * @param 		object 		$item 		Post object
@@ -92,7 +101,7 @@ class Lazy_Load_Videos_Templates {
 	 */
 	public function loop_content_link_begin( $item, $meta = array() ) {
 
-		include Lazy_Load_Videos_templates( 'loop-content-link-begin', 'loop' );
+		include Lazy_Load_Videos_get_template( 'loop-content-link-begin', 'loop' );
 
 	} // loop_content_link_begin()
 
@@ -104,18 +113,27 @@ class Lazy_Load_Videos_Templates {
 	 */
 	public function loop_content_link_end( $item, $meta = array() ) {
 
-		include Lazy_Load_Videos_templates( 'loop-content-link-end', 'loop' );
+		include Lazy_Load_Videos_get_template( 'loop-content-link-end', 'loop' );
 
 	} // loop_content_link_end()
 
 	/**
 	 * Includes the meta field template file
 	 */
-	public function loop_content_meta_field() {
+	public function loop_content_meta_field( $item, $meta = array() ) {
 
-		include Lazy_Load_Videos_templates( 'loop-content-meta-field', 'loop' );
+		include Lazy_Load_Videos_get_template( 'loop-content-meta-field', 'loop' );
 
 	} // loop_content_meta_field()
+
+	/**
+	 * Includes the post title template file
+	 */
+	public function loop_content_title( $item, $meta = array() ) {
+
+		include Lazy_Load_Videos_get_template( 'loop-content-title', 'loop' );
+
+	} // loop_content_title()
 
 	/**
 	 * Includes the content wrap start template file
@@ -127,7 +145,7 @@ class Lazy_Load_Videos_Templates {
 	 */
 	public function loop_content_wrap_begin( $item, $meta = array() ) {
 
-		include Lazy_Load_Videos_templates( 'loop-content-wrap-begin', 'loop' );
+		include Lazy_Load_Videos_get_template( 'loop-content-wrap-begin', 'loop' );
 
 	} // loop_content_wrap_begin()
 
@@ -139,7 +157,7 @@ class Lazy_Load_Videos_Templates {
 	 */
 	public function loop_content_wrap_end( $item, $meta = array() ) {
 
-		include Lazy_Load_Videos_templates( 'loop-content-wrap-end', 'loop' );
+		include Lazy_Load_Videos_get_template( 'loop-content-wrap-end', 'loop' );
 
 	} // loop_content_wrap_end()
 
@@ -167,9 +185,9 @@ class Lazy_Load_Videos_Templates {
 
 		}
 
-		include Lazy_Load_Videos_templates( 'loop-wrap-begin', 'loop' );
+		include Lazy_Load_Videos_get_template( 'loop-wrap-begin', 'loop' );
 
-	} // list_wrap_begin()
+	} // loop_wrap_begin()
 
 	/**
 	 * Includes the list wrap end template file
@@ -178,56 +196,18 @@ class Lazy_Load_Videos_Templates {
 	 */
 	public function loop_wrap_end( $args ) {
 
-		include Lazy_Load_Videos_templates( 'loop-wrap-end', 'loop' );
+		include Lazy_Load_Videos_get_template( 'loop-wrap-end', 'loop' );
 
-	} // list_wrap_end()
+	} // loop_wrap_end()
 
 	/**
 	 * Sets the class variable $options
 	 */
 	private function set_options() {
 
-		$this->options = get_option( $this->plugin_name . '-options' );
+		$this->options = get_option( 'lazy-load-videos-options' );
 
 	} // set_options()
-
-	/**
-	 * Includes the single video meta field
-	 *
-	 * @param 		array 		$meta 		The post metadata
-	 */
-	public function single_video_meta_field( $meta ) {
-
-		include Lazy_Load_Videos_templates( 'single-video-metafield', 'single' );
-
-	} // single_video_meta_field()
-
-	/**
-	 * Includes the single video content
-	 */
-	public function single_video_content() {
-
-		include Lazy_Load_Videos_templates( 'single-video-content', 'single' );
-
-	} // single_video_content()
-
-	/**
-	 * Includes the single video post title
-	 */
-	public function single_video_posttitle() {
-
-		include Lazy_Load_Videos_templates( 'single-video-posttitle', 'single' );
-
-	} // single_video_posttitle()
-
-	/**
-	 * Include the single video thumbnail
-	 */
-	public function single_video_thumbnail() {
-
-		include Lazy_Load_Videos_templates( 'single-video-thumbnail', 'single' );
-
-	} // single_video_thumbnail()
 
 	/**
 	 * Returns a reference to this class. Used for removing

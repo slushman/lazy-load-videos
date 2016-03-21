@@ -164,7 +164,6 @@ class Lazy_Load_Videos_Admin {
 		$defaults['label'] 			= '';
 		$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
 		$defaults['placeholder'] 	= '';
-		$defaults['type'] 			= 'text';
 		$defaults['value'] 			= '';
 
 		apply_filters( $this->plugin_name . '-field-text-options-defaults', $defaults );
@@ -327,8 +326,8 @@ class Lazy_Load_Videos_Admin {
 
 		$options = array();
 
-		$options[] = array( 'text-field', 'text', '' );
-		$options[] = array( 'select-field', 'select', '' );
+		$options[] = array( 'video-height', 'number', '' );
+		$options[] = array( 'video-width', 'number', '' );
 
 		return $options;
 
@@ -407,29 +406,32 @@ class Lazy_Load_Videos_Admin {
 		// add_settings_field( $id, $title, $callback, $menu_slug, $section, $args );
 
 		add_settings_field(
-			'text-field',
-			apply_filters( $this->plugin_name . '-label-text-field', esc_html__( 'Text Field', 'lazy-load-videos' ) ),
+			'video-height',
+			apply_filters( $this->plugin_name . '-label-video-height', esc_html__( 'Video Height', 'lazy-load-videos' ) ),
 			array( $this, 'field_text' ),
 			$this->plugin_name,
-			$this->plugin_name . '-settingssection',
+			$this->plugin_name . '-video-defaults',
 			array(
-				'description' 	=> 'Text field description.',
-				'id' 			=> 'text-field',
-				'value' 		=> '',
+				'class' 		=> 'text',
+				'description' 	=> 'The default height of a video, if a video does not specify a height.',
+				'id' 			=> 'video-height',
+				'type' 			=> 'number',
+				'value' 		=> '250',
 			)
 		);
 
 		add_settings_field(
-			'select-field',
-			apply_filters( $this->plugin_name . '-label-select-field', esc_html__( 'Select Field', 'lazy-load-videos' ) ),
-			array( $this, 'field_select' ),
+			'video-width',
+			apply_filters( $this->plugin_name . '-label-video-width', esc_html__( 'Video Width', 'lazy-load-videos' ) ),
+			array( $this, 'field_text' ),
 			$this->plugin_name,
-			$this->plugin_name . '-settingssection',
+			$this->plugin_name . '-video-defaults',
 			array(
-				'description' 	=> 'Select description.',
-				'id' 			=> 'select-field',
-				'selections'	=> array( 'One', 'Two', 'Three' ),
-				'value' 		=> ''
+				'class' 		=> 'text',
+				'description' 	=> 'The default width of video, if a video does not specify a width.',
+				'id' 			=> 'video-width',
+				'type' 			=> 'number',
+				'value' 		=> '300'
 			)
 		);
 
@@ -443,9 +445,9 @@ class Lazy_Load_Videos_Admin {
 		// add_settings_section( $id, $title, $callback, $menu_slug );
 
 		add_settings_section(
-			$this->plugin_name . '-settingssection',
-			apply_filters( $this->plugin_name . '-section-settingssection-title', esc_html__( 'Settings Section', 'lazy-load-videos' ) ),
-			array( $this, 'section_settingssection' ),
+			$this->plugin_name . '-video-defaults',
+			apply_filters( $this->plugin_name . '-section-video-defaults-title', esc_html__( 'Video Defaults', 'lazy-load-videos' ) ),
+			array( $this, 'section_video_defaults' ),
 			$this->plugin_name
 		);
 
@@ -477,11 +479,11 @@ class Lazy_Load_Videos_Admin {
 	 *
 	 * @return 		mixed 						The settings section
 	 */
-	public function section_settingssection( $params ) {
+	public function section_video_defaults( $params ) {
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-section-settingssection.php' );
+		include( plugin_dir_path( __FILE__ ) . 'views/view-section-video-defaults.php' );
 
-	} // section_settingssection()
+	} // section_video_defaults()
 
 	/**
 	 * Sets the class variable $options
@@ -508,12 +510,8 @@ class Lazy_Load_Videos_Admin {
 
 		foreach ( $options as $option ) {
 
-			$sanitizer = new Lazy_Load_Videos_Sanitize();
-
-			$sanitizer->set_data( $input[$option[0]] );
-			$sanitizer->set_type( $option[1] );
-
-			$valid[$option[0]] = $sanitizer->clean();
+			$sanitizer 			= new Lazy_Load_Videos_Sanitize();
+			$valid[$option[0]] 	= $sanitizer->clean( $input[$option[0]], $option[1] );
 
 			if ( $valid[$option[0]] != $input[$option[0]] ) {
 

@@ -1,10 +1,14 @@
+/**
+ * Opens the Media Library Chooser
+ *
+ */
 (function( $ ) {
 
 	'use strict';
 
 	$(function() {
 
-		var field, choose, remove;
+		var field, choose, remove, preview;
 
 		field 	= $( '[data-id="url-image"]' );
 		preview = $( '#image-preview' );
@@ -28,11 +32,11 @@
 
 			file_frame = wp.media.frames.file_frame = wp.media({
 				button: {
-					text: 'Choose File',
+					text: 'Choose Image',
 				},
 				frame: 'select',
 				multiple: false,
-				title: 'Choose File'
+				title: 'Choose Image'
 			});
 
 			file_frame.on( 'select', function() {

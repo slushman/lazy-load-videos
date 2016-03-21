@@ -95,47 +95,19 @@ class Lazy_Load_Videos_Shared {
 
 		if ( false === $return ) {
 
-			// get posts
-			// If empty, display none-found-msg
-			// If not, set cache, the return
+			$args = apply_filters( $this->plugin_name . '-query-args', $this->set_args( $params ) );
+			$query 	= new WP_Query( $args );
 
-
-
-
-			$options 				= get_option( $this->plugin_name . '-options' );
-			$posts 					=
-			$ordered 				= $this->get_ordered_Lazy_Load_Videos( $params );
-			$ordered_ids 			= $this->get_ids( $ordered );
-			$params['post__not_in'] = $ordered_ids;
-			$unordered 				= $this->get_unordered_Lazy_Load_Videos( $params );
-
-			if ( is_wp_error( $ordered )
-				&& empty( $ordered )
-				&& is_wp_error( $unordered )
-				&& empty( $unordered ) ) {
+			if ( is_wp_error( $query ) && empty( $query ) ) {
 
 				$options 	= get_option( $this->plugin_name . '-options' );
 				$return 	= $options['none-found-message'];
 
 			} else {
 
-				if ( empty( $ordered->posts ) && ! empty( $unordered->posts ) ) {
-
-					$query = $unordered->posts;
-
-				} elseif ( ! empty( $ordered->posts ) && empty( $unordered->posts ) ) {
-
-					$query = $ordered->posts;
-
-				} else {
-
-					$query = array_merge( $ordered->posts, $unordered->posts );
-
-				}
-
 				wp_cache_set( $cache_name, $query, $this->plugin_name . '_posts', 5 * MINUTE_IN_SECONDS );
 
-				$return = $query;
+				$return = $query->posts;
 
 			}
 
@@ -158,7 +130,7 @@ class Lazy_Load_Videos_Shared {
 		$args = array();
 
 		$args['no_found_rows']				= true;
-		$args['order'] 						= $params['order'];
+		$args['order'] 						= 'ASC';
 		$args['post_type'] 					= 'video';
 		$args['post_status'] 				= 'publish';
 		$args['posts_per_page'] 			= absint( $params['quantity'] );

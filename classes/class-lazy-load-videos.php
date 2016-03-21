@@ -114,7 +114,7 @@ class Lazy_Load_Videos {
 		/**
 		 * The class responsible for sanitizing user input
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-sanitize.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-sanitizer.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -237,7 +237,7 @@ class Lazy_Load_Videos {
 
 		$this->loader->action( 'add_meta_boxes_video', $plugin_metaboxes, 'add_metaboxes' );
 		$this->loader->action( 'save_post_video', $plugin_metaboxes, 'validate_meta', 10, 2 );
-		$this->loader->action( 'edit_form_after_title', $plugin_metaboxes, 'metabox_subtitle', 10, 2 );
+		//$this->loader->action( 'edit_form_after_title', $plugin_metaboxes, 'metabox_subtitle', 10, 2 );
 		$this->loader->action( 'add_meta_boxes_video', $plugin_metaboxes, 'set_meta' );
 		$this->loader->filter( 'post_type_labels_video', $plugin_metaboxes, 'change_featured_image_labels', 10, 1 );
 
@@ -256,8 +256,8 @@ class Lazy_Load_Videos {
 
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->filter( 'single_template', $plugin_public, 'single_cpt_template', 11 );
-		$this->loader->shortcode( 'shortcodename', $plugin_public, 'shortcode_shortcodename' );
+		//$this->loader->filter( 'single_template', $plugin_public, 'single_cpt_template', 11 );
+		$this->loader->shortcode( 'llvideo', $plugin_public, 'shortcode_llvideo' );
 
 		/**
 		 * Action instead of template tag.
@@ -268,7 +268,7 @@ class Lazy_Load_Videos {
 		 *
 		 * @link 	http://nacin.com/2010/05/18/rethinking-template-tags-in-plugins/
 		 */
-		$this->loader->action( 'actionname', $plugin_public, 'shortcode_shortcodename' );
+		$this->loader->action( 'actionname', $plugin_public, 'shortcode_llvideo' );
 
 	} // define_public_hooks()
 
@@ -283,20 +283,15 @@ class Lazy_Load_Videos {
 		$plugin_templates = new Lazy_Load_Videos_Templates();
 
 		// Loop
-		$this->loader->action( 'lazy-load-videos-before-loop', 			$plugin_templates, 'loop_wrap_start', 10, 1 );
-		$this->loader->action( 'lazy-load-videos-before-loop-content', 	$plugin_templates, 'loop_content_wrap_start', 10, 2 );
-		$this->loader->action( 'lazy-load-videos-before-loop-content', 	$plugin_templates, 'loop_content_link_start', 15, 2 );
-		$this->loader->action( 'lazy-load-videos-loop-content', 			$plugin_templates, 'loop_content_image', 10, 2 );
-		$this->loader->action( 'lazy-load-videos-loop-content', 			$plugin_templates, 'loop_content_name', 15, 2 );
-		$this->loader->action( 'lazy-load-videos-loop-content', 			$plugin_templates, 'loop_content_job_title', 20, 2 );
-		$this->loader->action( 'lazy-load-videos-after-loop-content', 	$plugin_templates, 'loop_content_link_end', 10, 2 );
-		$this->loader->action( 'lazy-load-videos-after-loop-content', 	$plugin_templates, 'loop_content_wrap_end', 90, 2 );
-		$this->loader->action( 'lazy-load-videos-after-loop', 			$plugin_templates, 'loop_wrap_end', 10, 1 );
+		$this->loader->action( 'lazy-load-videos-before-loop', 			$plugin_templates, 'loop_wrap_begin', 10, 1 );
 
-		// Single
-		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_video_thumbnail', 10 );
-		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_video_posttitle', 15 );
-		$this->loader->action( 'lazy-load-videos-single-content', $plugin_templates, 'single_video_content', 20 );
+		$this->loader->action( 'lazy-load-videos-before-loop-content', 	$plugin_templates, 'loop_content_wrap_begin', 10, 2 );
+
+		$this->loader->action( 'lazy-load-videos-loop-content', 		$plugin_templates, 'loop_content_image', 10, 2 );
+
+		$this->loader->action( 'lazy-load-videos-after-loop-content', 	$plugin_templates, 'loop_content_wrap_end', 90, 2 );
+
+		$this->loader->action( 'lazy-load-videos-after-loop', 			$plugin_templates, 'loop_wrap_end', 10, 1 );
 
 	} // define_template_hooks()
 

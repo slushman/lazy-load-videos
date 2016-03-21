@@ -18,9 +18,12 @@ if ( ! empty( $atts['label'] ) ) {
 
 ?><div id="image-preview" style="background-image:url(<?php echo esc_url( $atts['value'] ) ?>);"></div>
 <input
+	class="<?php echo esc_attr( $atts['class'] ); ?>"
 	data-id="url-image"
+	id="<?php echo esc_attr( $atts['id'] ); ?>"
 	name="<?php echo esc_attr( $atts['name'] ); ?>"
-	type="hidden"
+	placeholder="<?php echo esc_attr( $atts['placeholder'] ); ?>"
+	type="url"
 	value="<?php echo esc_attr( $atts['value'] ); ?>" />
 <a href="#" class="" id="choose-image"><?php esc_html_e( $atts['label-choose'], 'lazy-load-videos' ); ?></a>
 <a href="#" class="hide" id="remove-image"><?php esc_html_e( $atts['label-remove'], 'lazy-load-videos' ); ?></a><?php
