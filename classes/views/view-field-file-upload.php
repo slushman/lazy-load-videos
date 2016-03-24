@@ -12,7 +12,7 @@
 
 if ( ! empty( $atts['label'] ) ) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'lazy-load-videos' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php echo wp_kses( $atts['label'], array( 'code' => array() ) ); ?>: </label><?php
 
 }
 
@@ -23,5 +23,5 @@ if ( ! empty( $atts['label'] ) ) {
 	name="<?php echo esc_attr( $atts['name'] ); ?>"
 	type="<?php echo esc_attr( $atts['type'] ); ?>"
 	value="<?php echo esc_attr( $atts['value'] ); ?>" />
-<a href="#" class="" id="upload-file"><?php esc_html_e( $atts['label-upload'], 'lazy-load-videos' ); ?></a>
-<a href="#" class="hide" id="remove-file"><?php esc_html_e( $atts['label-remove'], 'lazy-load-videos' ); ?></a>
+<a href="#" class="" id="upload-file"><?php echo wp_kses( $atts['label-upload'], array( 'code' => array() ) ); ?></a>
+<a href="#" class="hide" id="remove-file"><?php echo wp_kses( $atts['label-remove'], array( 'code' => array() ) ); ?></a>

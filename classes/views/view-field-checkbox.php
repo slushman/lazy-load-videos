@@ -18,5 +18,5 @@
 		name="<?php echo esc_attr( $atts['name'] ); ?>"
 		type="checkbox"
 		value="1" />
-	<span class="description"><?php esc_html_e( $atts['description'], 'lazy-load-videos' ); ?></span>
+	<span class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></span>
 </label>

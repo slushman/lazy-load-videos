@@ -268,7 +268,7 @@ class Lazy_Load_Videos {
 		 *
 		 * @link 	http://nacin.com/2010/05/18/rethinking-template-tags-in-plugins/
 		 */
-		$this->loader->action( 'actionname', $plugin_public, 'shortcode_llvideo' );
+		$this->loader->action( 'llvideo', $plugin_public, 'shortcode_llvideo' );
 
 	} // define_public_hooks()
 
@@ -283,15 +283,11 @@ class Lazy_Load_Videos {
 		$plugin_templates = new Lazy_Load_Videos_Templates();
 
 		// Loop
-		$this->loader->action( 'lazy-load-videos-before-loop', 			$plugin_templates, 'loop_wrap_begin', 10, 1 );
-
 		$this->loader->action( 'lazy-load-videos-before-loop-content', 	$plugin_templates, 'loop_content_wrap_begin', 10, 2 );
 
 		$this->loader->action( 'lazy-load-videos-loop-content', 		$plugin_templates, 'loop_content_image', 10, 2 );
 
 		$this->loader->action( 'lazy-load-videos-after-loop-content', 	$plugin_templates, 'loop_content_wrap_end', 90, 2 );
-
-		$this->loader->action( 'lazy-load-videos-after-loop', 			$plugin_templates, 'loop_wrap_end', 10, 1 );
 
 	} // define_template_hooks()
 

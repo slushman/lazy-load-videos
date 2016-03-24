@@ -12,7 +12,7 @@
 
 if ( ! empty( $atts['label'] ) ) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'lazy-load-videos' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php echo wp_kses( $atts['label'], array( 'code' => array() ) ); ?>: </label><?php
 
 }
 
@@ -26,4 +26,4 @@ if ( ! empty( $atts['label'] ) ) {
 	echo esc_textarea( $atts['value'] );
 
 ?></textarea>
-<span class="description"><?php esc_html_e( $atts['description'], 'lazy-load-videos' ); ?></span>
+<span class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></span>

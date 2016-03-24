@@ -26,7 +26,7 @@
 
 if ( ! empty( $atts['description'] ) ) {
 
-	?><legend class="description"><?php esc_html_e( $atts['description'], 'lazy-load-videos' ); ?></legend><?php
+	?><legend class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></legend><?php
 
 }
 
@@ -59,7 +59,7 @@ foreach ( $atts['selections'] as $selection ) {
 			type="radio"
 			value="<?php echo esc_attr( $value ); ?>" /> <?php
 
-			esc_html_e( $label, 'lazy-load-videos' );
+			echo wp_kses( $label, array( 'code' => array() ) );
 
 	?></label><?php
 

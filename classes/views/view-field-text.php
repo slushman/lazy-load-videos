@@ -12,7 +12,7 @@
 
 if ( ! empty( $atts['label'] ) ) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'lazy-load-videos' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php echo wp_kses( $atts['label'], array( 'code' => array() ) ); ?>: </label><?php
 
 }
 
@@ -26,6 +26,6 @@ if ( ! empty( $atts['label'] ) ) {
 
 if ( ! empty( $atts['description'] ) ) {
 
-	?><p class="description"><?php esc_html_e( $atts['description'], 'lazy-load-videos' ); ?></p><?php
+	?><p class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></p><?php
 
 }

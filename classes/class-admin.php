@@ -413,7 +413,7 @@ class Lazy_Load_Videos_Admin {
 			$this->plugin_name . '-video-defaults',
 			array(
 				'class' 		=> 'text',
-				'description' 	=> 'The default height of a video, if a video does not specify a height.',
+				'description' 	=> esc_html__( 'The default height of a video, if a video does not specify a height.', 'lazy-load-videos' ),
 				'id' 			=> 'video-height',
 				'type' 			=> 'number',
 				'value' 		=> '250',
@@ -428,8 +428,28 @@ class Lazy_Load_Videos_Admin {
 			$this->plugin_name . '-video-defaults',
 			array(
 				'class' 		=> 'text',
-				'description' 	=> 'The default width of video, if a video does not specify a width.',
+				'description' 	=> esc_html__( 'The default width of video, if a video does not specify a width.', 'lazy-load-videos' ),
 				'id' 			=> 'video-width',
+				'type' 			=> 'number',
+				'value' 		=> '300'
+			)
+		);
+
+		add_settings_field(
+			'default-behavior',
+			apply_filters( $this->plugin_name . '-label-video-width', esc_html__( 'Video Width', 'lazy-load-videos' ) ),
+			array( $this, 'field_select' ),
+			$this->plugin_name,
+			$this->plugin_name . '-video-defaults',
+			array(
+				'class' 		=> 'text',
+				'description' 	=> esc_html__( 'The default behavior when the display image is clicked.', 'lazy-load-videos' ),
+				'id' 			=> 'default-behavior',
+				'selections' 	=> array(
+					array( 'label' => esc_html__( 'Swap in place', 'lazy-load-videos' ), 'value' => 'swap' ),
+					array( 'label' => esc_html__( 'Pop-up Window', 'lazy-load-videos' ), 'value' => 'popup' ),
+					array( 'label' => esc_html__( 'Modal Window', 'lazy-load-videos' ), 'value' => 'modal' )
+				},
 				'type' 			=> 'number',
 				'value' 		=> '300'
 			)

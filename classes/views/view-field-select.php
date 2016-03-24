@@ -12,19 +12,19 @@
 
 if ( ! empty( $atts['label'] ) ) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'lazy-load-videos' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php echo wp_kses( $atts['label'], array( 'code' => array() ) ); ?>: </label><?php
 
 }
 
 ?><select
-	aria-label="<?php esc_attr_e( $atts['aria'], 'lazy-load-videos' ); ?>"
+	aria-label="<?php esc_attr_e( $atts['aria'], array( 'code' => array() ) ); ?>"
 	class="<?php echo esc_attr( $atts['class'] ); ?>"
 	id="<?php echo esc_attr( $atts['id'] ); ?>"
 	name="<?php echo esc_attr( $atts['name'] ); ?>"><?php
 
 if ( ! empty( $atts['blank'] ) ) {
 
-	?><option value><?php esc_html_e( $atts['blank'], 'lazy-load-videos' ); ?></option><?php
+	?><option value><?php echo wp_kses( $atts['blank'], array( 'code' => array() ) ); ?></option><?php
 
 }
 
@@ -48,7 +48,7 @@ if ( ! empty( $atts['selections'] ) ) {
 			value="<?php echo esc_attr( $value ); ?>" <?php
 			selected( $atts['value'], $value ); ?>><?php
 
-			esc_html_e( $label, 'lazy-load-videos' );
+			echo wp_kses( $label, array( 'code' => array() ) );
 
 		?></option><?php
 
@@ -57,4 +57,4 @@ if ( ! empty( $atts['selections'] ) ) {
 }
 
 ?></select>
-<span class="description"><?php esc_html_e( $atts['description'], 'lazy-load-videos' ); ?></span>
+<span class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></span>
