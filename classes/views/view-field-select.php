@@ -17,7 +17,7 @@ if ( ! empty( $atts['label'] ) ) {
 }
 
 ?><select
-	aria-label="<?php esc_attr_e( $atts['aria'], array( 'code' => array() ) ); ?>"
+	aria-label="<?php echo wp_kses( $atts['aria'], array( 'code' => array() ) ); ?>"
 	class="<?php echo esc_attr( $atts['class'] ); ?>"
 	id="<?php echo esc_attr( $atts['id'] ); ?>"
 	name="<?php echo esc_attr( $atts['name'] ); ?>"><?php
@@ -44,8 +44,8 @@ if ( ! empty( $atts['selections'] ) ) {
 
 		}
 
-		?><option
-			value="<?php echo esc_attr( $value ); ?>" <?php
+		?><option value="<?php echo esc_attr( $value ); ?>" <?php
+
 			selected( $atts['value'], $value ); ?>><?php
 
 			echo wp_kses( $label, array( 'code' => array() ) );
@@ -57,4 +57,4 @@ if ( ! empty( $atts['selections'] ) ) {
 }
 
 ?></select>
-<span class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></span>
+<p class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></p>

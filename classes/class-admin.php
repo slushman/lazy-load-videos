@@ -250,6 +250,8 @@ class Lazy_Load_Videos_Admin {
 
 		}
 
+		//echo '<pre>'; print_r( $atts ); echo '</pre>';
+
 		include( plugin_dir_path( __FILE__ ) . 'views/view-field-select.php' );
 
 	} // field_select()
@@ -437,19 +439,20 @@ class Lazy_Load_Videos_Admin {
 
 		add_settings_field(
 			'default-behavior',
-			apply_filters( $this->plugin_name . '-label-video-width', esc_html__( 'Video Width', 'lazy-load-videos' ) ),
+			apply_filters( $this->plugin_name . '-label-video-width', esc_html__( 'Click Behavior', 'lazy-load-videos' ) ),
 			array( $this, 'field_select' ),
 			$this->plugin_name,
 			$this->plugin_name . '-video-defaults',
 			array(
-				'class' 		=> 'text',
+				'blank' 		=> esc_html__( 'What should happen?', 'lazy-load-videos' ),
+				'class' 		=> 'select',
 				'description' 	=> esc_html__( 'The default behavior when the display image is clicked.', 'lazy-load-videos' ),
 				'id' 			=> 'default-behavior',
 				'selections' 	=> array(
 					array( 'label' => esc_html__( 'Swap in place', 'lazy-load-videos' ), 'value' => 'swap' ),
 					array( 'label' => esc_html__( 'Pop-up Window', 'lazy-load-videos' ), 'value' => 'popup' ),
 					array( 'label' => esc_html__( 'Modal Window', 'lazy-load-videos' ), 'value' => 'modal' )
-				},
+				),
 				'type' 			=> 'number',
 				'value' 		=> '300'
 			)
